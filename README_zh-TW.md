@@ -51,7 +51,7 @@ MiniCPM5-1B-SFT ──upcycle.py──▶ ETETMoE_LLAMA（第 0-15 層稠密 + �
 ## 快速開始
 
 ```bash
-git clone https://github.com/Rheoecho-Studio/ETETMoE
+git clone https://github.com/RheoEcho-Studio/ETETMoE
 cd ETETMoE
 python env.py
 

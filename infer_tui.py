@@ -562,7 +562,7 @@ class ModelSelectScreen(ModalScreen[Optional[Path]]):
             with VerticalScroll(id="model-list"):
                 for i, model in enumerate(self.models):
                     if is_multimodal_model(model):
-                        tag = "ETET-Multimodal"
+                        tag = "ETET_VL"
                     elif is_etet_model(model):
                         tag = "ETET-MoE"
                     else:
@@ -824,7 +824,7 @@ class ETETChatApp(App):
             log(f"Loading model from: {model_dir}")
             etet = is_etet_model(model_dir)
             multimodal = is_multimodal_model(model_dir)
-            model_type = "ETET-Multimodal" if multimodal else ("ETET-MoE" if etet else "LlamaForCausalLM")
+            model_type = "ETET_VL" if multimodal else ("ETET-MoE" if etet else "LlamaForCausalLM")
             log(f"Model type: {model_type} | device={self.device} | dtype={self.dtype}")
 
             if self.model is not None or self.mm_components is not None:
@@ -891,7 +891,7 @@ class ETETChatApp(App):
         self.mm_components = mm_components
         self.model_dir = model_dir
         self.is_loading = False
-        model_type = "ETET-Multimodal" if multimodal else ("ETET-MoE" if etet else "LlamaForCausalLM")
+        model_type = "ETET_VL" if multimodal else ("ETET-MoE" if etet else "LlamaForCausalLM")
         params = format_params(param_count)
         self.mount_message(
             f"Model ready: [b]{escape(model_dir.name)}[/b] "

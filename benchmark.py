@@ -158,7 +158,7 @@ def select_model_interactive(log_fn: Optional[Callable[[str], None]] = None) -> 
     log("Available models:")
     for i, m in enumerate(models):
         if is_multimodal_model(m):
-            tag = "ETET-Multimodal"
+            tag = "ETET_VL"
         elif is_etet_model(m):
             tag = "ETET-MoE"
         else:

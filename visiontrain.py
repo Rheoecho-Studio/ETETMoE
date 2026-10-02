@@ -258,7 +258,7 @@ def infer_moe_layers(state_dict):
 
 def create_etet_text_model(model_dir, dtype):
     import types
-    from transformers import AutoModelForCausalLM
+    from transformers import LlamaForCausalLM
     LOGGER.info("Loading ETET text model from: %s", model_dir)
     config = AutoConfig.from_pretrained(model_dir, local_files_only=True, trust_remote_code=True)
     if getattr(config, "num_hidden_layers", None) != NUM_TOTAL_LAYERS:
@@ -268,7 +268,7 @@ def create_etet_text_model(model_dir, dtype):
     expected = list(range(MOE_START_LAYER, MOE_END_LAYER + 1))
     if moe_layers != expected:
         raise RuntimeError(f"MoE layers {moe_layers} != expected {expected}")
-    model = AutoModelForCausalLM.from_config(config, trust_remote_code=True)
+    model = LlamaForCausalLM(config)
     hidden_size = config.hidden_size
     for layer_idx in expected:
         layer = model.model.layers[layer_idx]
@@ -1191,9 +1191,9 @@ def export_final_model(mm, tokenizer, image_token_id, num_image_tokens, output_d
         _save_language_model_manual(lm, language_dir)
     tokenizer.save_pretrained(str(output_dir))
     metadata = {
-        "model_type": "ETET-Multimodal",
+        "model_type": "ETET_VL",
         "mode": mode,
-        "architecture": "SigLIP-HD + ETETVisionConnector (with LayerNorm) + ETET-MoE",
+        "architecture": "ETETMOE_LLAMA",
         "image_size": IMAGE_SIZE,
         "image_token": IMAGE_TOKEN,
         "image_token_id": image_token_id,
